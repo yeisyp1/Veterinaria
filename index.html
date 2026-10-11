@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Agendamiento de citas de la Clínica Veterinaria Huellas del Valle.">
+  <meta name="color-scheme" content="light dark">
+  <title>Huellas del Valle · Agenda</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%BE%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">🐾</span>
+      <div>
+        <h1>Huellas del Valle</h1>
+        <p>Clínica veterinaria · Cali</p>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Vistas">
+      <button class="tab is-active" role="tab" id="tab-agendar" aria-selected="true" aria-controls="vista-agendar" data-vista="agendar">Agendar cita</button>
+      <button class="tab" role="tab" id="tab-agenda" aria-selected="false" tabindex="-1" aria-controls="vista-agenda" data-vista="agenda">Agenda del día</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Vista 1: agendar -->
+    <section id="vista-agendar" class="vista" role="tabpanel" aria-labelledby="tab-agendar" tabindex="0">
+      <div class="card">
+        <h2 id="titulo-form">Nueva cita</h2>
+        <p class="hint">Atendemos perros y gatos: consulta general, vacunación, baño y ecografía. Todos los campos son obligatorios.</p>
+
+        <form id="form-cita" novalidate aria-labelledby="titulo-form">
+          <div class="grid">
+            <label class="field">
+              <span>Propietario</span>
+              <input type="text" name="propietario" autocomplete="name" required>
+            </label>
+            <label class="field">
+              <span>Correo</span>
+              <input type="email" name="correo" autocomplete="email" required>
+            </label>
+            <label class="field">
+              <span>Mascota</span>
+              <input type="text" name="mascota" autocomplete="off" required>
+            </label>
+            <label class="field">
+              <span>Especie</span>
+              <select name="especie" required>
+                <option value="">Selecciona…</option>
+                <option value="perro">Perro</option>
+                <option value="gato">Gato</option>
+              </select>
+            </label>
+            <label class="field field-wide">
+              <span>Servicio</span>
+              <select name="servicio" required>
+                <option value="">Selecciona…</option>
+                <option>Consulta general</option>
+                <option>Vacunación</option>
+                <option>Baño</option>
+                <option>Ecografía</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Fecha</span>
+              <input type="date" name="fecha" required>
+            </label>
+            <label class="field">
+              <span>Hora</span>
+              <input type="time" name="hora" required>
+            </label>
+          </div>
+
+          <p id="form-error" class="form-error" role="alert" hidden></p>
+          <p id="form-aviso" class="form-aviso" role="status" aria-live="polite"></p>
+
+          <div class="actions">
+            <button type="submit" id="btn-enviar" class="btn btn-primary">Agendar cita</button>
+            <button type="reset" id="btn-limpiar" class="btn btn-ghost">Limpiar</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="resultado-zona" role="status" aria-live="polite" aria-atomic="true">
+        <div id="resultado" class="resultado" hidden>
+          <div class="resultado-icono" id="resultado-icono" aria-hidden="true"></div>
+          <div>
+            <h3 id="resultado-titulo"></h3>
+            <p id="resultado-texto"></p>
+            <p id="resultado-detalle" class="resultado-detalle"></p>
+          </div>
+        </div>
+      </div>
+
+      <details class="card casos">
+        <summary>Casos de prueba del parcial</summary>
+        <p class="hint">Cargan los datos en el formulario; tú decides cuándo enviar. Ejecútalos en este orden: el C5 depende del C1.</p>
+        <div class="casos-lista">
+          <button type="button" class="btn btn-ghost" data-caso="C1">C1 · Luna · Consulta · 14 oct 08:00</button>
+          <button type="button" class="btn btn-ghost" data-caso="C2">C2 · Michi · Vacunación · 14 oct 10:00</button>
+          <button type="button" class="btn btn-ghost" data-caso="C3">C3 · Rocky · Baño · 14 oct 11:00</button>
+          <button type="button" class="btn btn-ghost" data-caso="C4">C4 · Pelusa · Consulta · 20 oct 08:00</button>
+          <button type="button" class="btn btn-ghost" data-caso="C5">C5 · Luna · Baño · 14 oct 09:00</button>
+        </div>
+      </details>
+    </section>
+
+    <!-- Vista 2: agenda del día -->
+    <section id="vista-agenda" class="vista" role="tabpanel" aria-labelledby="tab-agenda" tabindex="0" hidden>
+      <div class="card">
+        <div class="agenda-head">
+          <h2 id="titulo-agenda">Agenda del día</h2>
+          <div class="agenda-controles">
+            <label class="field field-inline">
+              <span>Fecha</span>
+              <input type="date" id="agenda-fecha">
+            </label>
+            <button type="button" id="btn-recargar" class="btn btn-ghost">Actualizar</button>
+          </div>
+        </div>
+
+        <p id="agenda-estado" class="hint" role="status" aria-live="polite"></p>
+
+        <div class="tabla-wrap" role="region" aria-labelledby="titulo-agenda" tabindex="0">
+          <table id="tabla-agenda" hidden>
+            <caption id="tabla-caption" class="sr-only">Citas del día, ordenadas por hora</caption>
+            <thead>
+              <tr>
+                <th scope="col">Hora</th>
+                <th scope="col">Mascota</th>
+                <th scope="col">Servicio</th>
+                <th scope="col">Propietario</th>
+                <th scope="col">Resultado</th>
+                <th scope="col">Estado</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-cuerpo"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
