@@ -217,13 +217,13 @@
     CAMPOS.forEach((n) => marcar(form.elements[n], false));
   });
 
-  /* Casos de prueba del parcial (cargan el formulario; el envío lo decide el usuario) */
+  /* Casos de prueba del parcial  */
   const CASOS = {
-    C1: { propietario: "Ana Torres", correo: "ana1@correo.com", mascota: "Luna", especie: "perro", servicio: "Consulta general", fecha: "2026-10-14", hora: "08:00" },
-    C2: { propietario: "Carlos Ruiz", correo: "carlos@correo.com", mascota: "Michi", especie: "gato", servicio: "Vacunación", fecha: "2026-10-14", hora: "10:00" },
-    C3: { propietario: "Marta Gómez", correo: "marta@correo.com", mascota: "Rocky", especie: "perro", servicio: "Baño", fecha: "2026-10-14", hora: "11:00" },
-    C4: { propietario: "Laura Pérez", correo: "laura@correo.com", mascota: "Pelusa", especie: "gato", servicio: "Consulta general", fecha: "2026-10-20", hora: "08:00" },
-    C5: { propietario: "Ana Torres", correo: "ana1@correo.com", mascota: "Luna", especie: "perro", servicio: "Baño", fecha: "2026-10-14", hora: "09:00" },
+    C1: { propietario: "Ana Torres", correo: "jeipanameno@gmail.com", mascota: "Luna", especie: "perro", servicio: "Consulta general", fecha: "2026-10-14", hora: "08:00" },
+    C2: { propietario: "Carlos Ruiz", correo: "jeipanameno@gmail.com", mascota: "Michi", especie: "gato", servicio: "Vacunación", fecha: "2026-10-14", hora: "10:00" },
+    C3: { propietario: "Marta Gómez", correo: "jeipanameno@gmail.com", mascota: "Rocky", especie: "perro", servicio: "Baño", fecha: "2026-10-14", hora: "11:00" },
+    C4: { propietario: "Laura Pérez", correo: "jeipanameno@gmail.com", mascota: "Pelusa", especie: "gato", servicio: "Consulta general", fecha: "2026-10-20", hora: "08:00" },
+    C5: { propietario: "Ana Torres", correo: "jeipanameno@gmail.com", mascota: "Luna", especie: "perro", servicio: "Baño", fecha: "2026-10-14", hora: "09:00" },
   };
   botonesCaso.forEach((b) =>
     b.addEventListener("click", () => {
